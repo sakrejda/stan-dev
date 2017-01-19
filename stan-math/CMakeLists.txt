@@ -1,6 +1,6 @@
 
 ExternalProject_Add(stan-math
-  GIT_REPOSITORY    https://github.com/stan-math-dev/stan-math.git
+  GIT_REPOSITORY    https://github.com/stan-dev/math.git
   GIT_TAG           develop
   SOURCE_DIR        "${CMAKE_BINARY_DIR}/stan-math-src"
   BINARY_DIR        ""
