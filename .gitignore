@@ -1,0 +1,14 @@
+*.a
+*.swp
+*.la
+*.so
+*.o
+*.so.*
+*.pc
+include/*
+lib/pkgconfig/*
+test/*
+test/*/*
+test/*/*/*
+src/stan/proto/*.pb.cc
+src/stan/proto/*.pb.h
