@@ -12,19 +12,12 @@ ExternalProject_Add(protobuf
   TEST_COMMAND      ""
 )
 
-# Specify include dir
+# Dump variables to global environment
 ExternalProject_Get_Property(protobuf PROTO_SOURCE_DIR)
-set(PROTO_INCLUDE_DIR ${PROTO_SOURCE_DIR}/include)
 ExternalProject_Get_Property(protobuf PROTO_BINARY_DIR)
-set(PROTO_LIBRARY protobuf)
-add_library(${PROTO_LIBRARY} UNKNOWN IMPORTED)
-add_dependencies(${PROTO_LIBRARY} protobuf)
-set_target_properties(protobuf PROPERTIES
-  IMPORTED_LOCATION ${PROTO_BINARY_DIR}/libprotobuf.a
-)
 
-#include_directories(${PROTO_INCLUDE} ${PROTO_BASE})
-#set(PROTO_ROOT ${PROTO_BASE})
-#set(PROTO_INCLUDE_DIR ${PROTO_INCLUDE})
-#set(PROTO_LIBRARY ${PROTO_BASE}/libprotobuf.a)
+# Protobuf include dir
+set(PROTO_INCLUDE_DIR ${PROTO_SOURCE_DIR}/src)
+set(PROTO_ROOT ${PROTO_SOURCE_DIR})
+set(PROTO_LIBRARY ${PROTO_BINARY_DIR}/libprotobuf.a)
 

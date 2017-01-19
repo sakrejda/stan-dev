@@ -1,36 +1,23 @@
 
-## Provide GoogleTest 
+## Provide Boost
 
 ExternalProject_Add(boost
-  GIT_REPOSITORY    https://github.com/google/googletest.git
-  GIT_TAG           master
-  SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
-  BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
+  GIT_REPOSITORY    https://github.com/boostorg/boost.git
+  GIT_TAG           develop
+  SOURCE_DIR        "${CMAKE_BINARY_DIR}/boost-src"
+  BINARY_DIR        "${CMAKE_BINARY_DIR}/boost-build"
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
 )
 
-# Specify include dir
-ExternalProject_Get_Property(googletest GTEST_SOURCE_DIR)
-set(GTEST_INCLUDE_DIR ${GTEST_SOURCE_DIR}/include)
-ExternalProject_Get_Property(googletest GTEST_BINARY_DIR)
-set(GTEST_LIBRARY gtest)
-add_library(${GTEST_LIBRARY} UNKNOWN IMPORTED)
-add_dependencies(${GTEST_LIBRARY} googletest)
-add_library(${GTEST_LIBRARY}_main UNKNOWN IMPORTED)
-add_dependencies(${GTEST_LIBRARY}_main googletest)
-set_target_properties(gtest PROPERTIES
-  IMPORTED_LOCATION ${GTEST_BINARY_DIR}/libgtest.a
-)
-set_target_properties(gtest_main PROPERTIES
-  IMPORTED_LOCATION ${GTEST_BINARY_DIR}/libgtest_main.a
-)
+# Dump variables to global environment:
+ExternalProject_Get_Property(boost BOOST_SOURCE_DIR)
+ExternalProject_Get_Property(boost BOOST_BINARY_DIR)
 
-#include_directories(${GTEST_INCLUDE} ${GTEST_BASE})
-#set(GTEST_ROOT ${GTEST_BASE})
-#set(GTEST_INCLUDE_DIR ${GTEST_INCLUDE})
-#set(GTEST_LIBRARY ${GTEST_BASE}/libgtest.a)
-#set(GTEST_MAIN_LIBRARY ${GTEST_BASE}/libgtest-main.s)
+# GoogleTest include dir
+set(BOOST_INCLUDE_DIR ${BOOST_SOURCE_DIR}/boost/include)
+include_directories(${BOOST_INCLUDE_DIR})
+
 

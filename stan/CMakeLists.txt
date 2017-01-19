@@ -8,7 +8,12 @@ ExternalProject_Add(stan
   BUILD_COMMAND     "make"
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
+  DEPENDS           boost googletest stan-math
 )
+
+# Dump variables to global environment:
+ExternalProject_Get_Property(stan STAN_SOURCE_DIR)
+ExternalProject_Get_Property(stan STAN_BINARY_DIR)
 
 # Stan include dir
 set(STAN_SRC ${STAN_SOURCE_DIR}/src)
@@ -23,16 +28,5 @@ file(GLOB STAN_GRAMMAR
 )
 add_library(stanc STATIC ${STAN_GRAMMAR})
 
-# Dump variables to global environment:
-ExternalProject_Get_Property(stan STAN_SOURCE_DIR)
-ExternalProject_Get_Property(stan STAN_BINARY_DIR)
-
-# Add project product as dependent
-set(STAN_LIBRARY stanc)
-add_library(${STAN_LIBRARY} UNKNOWN IMPORTED)
-add_dependencies(${STAN_LIBRARY} stan)
-set_target_properties(stan PROPERTIES
-  IMPORTED_LOCATION ${STAN_BINARY_DIR}/libstanc.a
-)
 
 
