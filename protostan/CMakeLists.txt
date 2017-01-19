@@ -1,7 +1,16 @@
-cmake_minimum_required (VERSION 3.5)
-project (protostan VERSION 0.0.0.9000)
-cmake_policy(SET CMP0048 OLD)
-include(CTest)
+
+ExternalProject_Add(protostan
+  GIT_REPOSITORY    https://github.com/sakrejda/protostan.git
+  GIT_TAG           develop
+  SOURCE_DIR        "${CMAKE_BINARY_DIR}/protostan-src"
+  BINARY_DIR        "${CMAKE_BINARY_DIR}/protostan-build"
+  CONFIGURE_COMMAND cd ${CMAKE_BINARY_DIR}/protostan-build && cmake ${CMAKE_BINARY_DIR}/protostan-src
+  BUILD_COMMAND     "make"
+  INSTALL_COMMAND   ""
+  TEST_COMMAND      ""
+  DEPENDS           boost googletest stan stan-math
+)
+
 
 # Add Stan math
 include_directories(${STAN_MATH_SRC})
@@ -12,12 +21,6 @@ include_directories(${STAN_SRC}/src)
 # Include Boost
 set(BOOST lib/stan/lib/stan_math/lib/boost_1.58.0)
 include_directories(${BOOST})
-
-# Find libraries:
-find_library(LIB_PROTOBUF protobuf)
-find_library(LIB_GTEST gtest ${PROJECT_BINARY_DIR}/googletest/googletest)
-find_library(LIB_GTEST_MAIN gtest_main ${PROJECT_BINARY_DIR}/googletest/googletest)
-find_library(LIB_STANC stanc ${PROJECT_BINARY_DIR}/stan)
 
 
 

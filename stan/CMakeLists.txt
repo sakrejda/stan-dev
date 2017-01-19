@@ -19,6 +19,9 @@ ExternalProject_Get_Property(stan BINARY_DIR)
 set(STAN_SRC ${STAN_SOURCE_DIR}/stan/src)
 include_directories(${STAN_SRC})
 
+# Stan library dir
+set(LIB_STANC ${STAN_SOURCE_DIR}/lib/libstanc.a)
+
 # Collect Stan grammar files for libstanc.a
 #file(GLOB STAN_GRAMMAR 
 #  ${STAN_SRC}/stan/lang/grammars/*_inst.cpp

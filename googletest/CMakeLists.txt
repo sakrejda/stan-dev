@@ -23,10 +23,10 @@ else(GTest_FOUND)
   ExternalProject_Get_Property(googletest BINARY_DIR)
   
   # GoogleTest include dir
-  set(GTEST_INCLUDE_DIR ${GTEST_SOURCE_DIR}/googletest/include)
+  set(GTEST_INCLUDE_DIR ${SOURCE_DIR}/googletest/include)
   include_directories(${GTEST_INCLUDE_DIR})
-  set(GTEST_ROOT ${GTEST_BINARY_DIR})
-  set(GTEST_LIBRARY ${GTEST_BINARY_DIR}/libgtest.a)
-  set(GTEST_MAIN_LIBRARY ${GTEST_BINARY_DIR}/libgtest-main.s)
+  set(GTEST_ROOT ${BINARY_DIR} PARENT_SCOPE)
+  add_library(${BINARY_DIR}/libgtest.a PARENT_SCOPE)
+  set(GTEST_MAIN_LIBRARY ${BINARY_DIR}/libgtest-main.a PARENT_SCOPE)
 endif(GTest_FOUND)
 
