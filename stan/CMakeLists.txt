@@ -12,8 +12,8 @@ ExternalProject_Add(stan
 )
 
 # Dump variables to global environment:
-ExternalProject_Get_Property(stan STAN_SOURCE_DIR)
-ExternalProject_Get_Property(stan STAN_BINARY_DIR)
+ExternalProject_Get_Property(stan SOURCE_DIR)
+ExternalProject_Get_Property(stan BINARY_DIR)
 
 # Stan include dir
 set(STAN_SRC ${STAN_SOURCE_DIR}/src)

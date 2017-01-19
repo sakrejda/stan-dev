@@ -13,8 +13,8 @@ ExternalProject_Add(googletest
 )
 
 # Dump variables to global environment:
-ExternalProject_Get_Property(googletest GTEST_SOURCE_DIR)
-ExternalProject_Get_Property(googletest GTEST_BINARY_DIR)
+ExternalProject_Get_Property(googletest SOURCE_DIR)
+ExternalProject_Get_Property(googletest BINARY_DIR)
 
 # GoogleTest include dir
 set(GTEST_INCLUDE_DIR ${GTEST_SOURCE_DIR}/googletest/include)
