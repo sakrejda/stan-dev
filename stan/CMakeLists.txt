@@ -18,6 +18,7 @@ ExternalProject_Get_Property(stan BINARY_DIR)
 # Stan include dir
 set(STAN_SRC ${SOURCE_DIR}/src)
 include_directories(${STAN_SRC})
+message("STAN_SRC: " ${STAN_SRC})
 
 add_definitions(
  -DBOOST_RESULT_OF_USE_TR1
