@@ -28,8 +28,8 @@ else(GTest_FOUND)
   message("GTEST_BINARY_DIR: " ${GTEST_BINARY_DIR})
 
   set(GTEST_LIB_DIR ${GTEST_BINARY_DIR}/googlemock/gtest PARENT_SCOPE)
-  set(GTEST_LIBRARY ${GTEST_LIB_DIR}/libgtest.a PARENT_SCOPE)
-  set(GTEST_MAIN_LIBRARY ${GTEST_LIB_DIR}/libtest_main.a PARENT_SCOPE)
+  set(GTEST_LIBRARY ${GTEST_BINARY_DIR}/googlemock/gtest/libgtest.a PARENT_SCOPE)
+  set(GTEST_MAIN_LIBRARY ${GTEST_BINARY_DIR}/googlemock/gtest/libtest_main.a PARENT_SCOPE)
   set(GTEST_INCLUDE_DIR ${GTEST_SOURCE_DIR}/googletest/include PARENT_SCOPE)
 endif(GTest_FOUND)
 

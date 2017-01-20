@@ -35,6 +35,7 @@ add_library(stanc STATIC ${STAN_GRAMMAR})
 add_dependencies(stanc boost gtest gtest_main stan-math)
 
 set(STAN_LIB_DIR ${PROJECT_BINARY_DIR}/stan PARENT_SCOPE)
+set(LIB_STANC ${PROJECT_BINARY_DIR}/stan/libstanc.a PARENT_SCOPE)
 set(STAN_INCLUDE_DIR ${STAN_SOURCE_DIR}/src PARENT_SCOPE)
 
 
