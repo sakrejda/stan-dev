@@ -1,22 +1,18 @@
 
-ExternalProject_Add(stan
-  GIT_REPOSITORY    https://github.com/stan-dev/stan.git
-  GIT_TAG           develop
-  SOURCE_DIR        "${CMAKE_BINARY_DIR}/stan-src"
-  BINARY_DIR        "${CMAKE_BINARY_DIR}/stan-build"
-  CONFIGURE_COMMAND ""
-  BUILD_COMMAND     ""
-  INSTALL_COMMAND   ""
-  TEST_COMMAND      ""
-  DEPENDS           boost gtest gtest_main stan-math
-)
 
-# Dump variables to global environment:
-ExternalProject_Get_Property(stan SOURCE_DIR)
-ExternalProject_Get_Property(stan BINARY_DIR)
+message("Getting Stan!")
+download_project(
+  PROJ             stan
+  GIT_REPOSITORY   https://github.com/stan-dev/stan.git
+  GIT_TAG          develop
+  ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+)
+  
+set(STAN_SOURCE_DIR ${stan_SOURCE_DIR})
+set(STAN_BINARY_DIR ${stan_BINARY_DIR}) 
 
 # Stan include dir
-set(STAN_SRC ${SOURCE_DIR}/src)
+set(STAN_SRC ${STAN_SOURCE_DIR}/src)
 include_directories(${STAN_SRC})
 message("STAN_SRC: " ${STAN_SRC})
 
@@ -28,7 +24,6 @@ add_definitions(
  -DNO_FPRINTF_OUTPUT 
  -DGTEST_USE_OWN_TR1_TUPLE)
 
-message("BOOST_INCLUDE_DIR: " ${BOOST_INCLUDE_DIR})
 file(GLOB STAN_GRAMMAR 
   ${STAN_SRC}/stan/lang/grammars/*_inst.cpp
   ${STAN_SRC}/stan/lang/grammars/*_def.cpp
@@ -37,9 +32,10 @@ file(GLOB STAN_GRAMMAR
 )
 include_directories(${BOOST_INCLUDE_DIR})
 add_library(stanc STATIC ${STAN_GRAMMAR})
+add_dependencies(stanc boost gtest gtest_main stan-math)
 
 set(STAN_LIB_DIR ${PROJECT_BINARY_DIR}/stan PARENT_SCOPE)
-set(STAN_INCLUDE_DIR ${SOURCE_DIR}/src PARENT_SCOPE)
+set(STAN_INCLUDE_DIR ${STAN_SOURCE_DIR}/src PARENT_SCOPE)
 
 
 

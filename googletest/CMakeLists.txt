@@ -18,10 +18,14 @@ else(GTest_FOUND)
   # Prevent GoogleTest from overriding our compiler/linker options
   # when building with Visual Studio
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-  
+
+  add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR}) 
+
   set(GTEST_SOURCE_DIR ${CMAKE_BINARY_DIR}/googletest-src)
   set(GTEST_BINARY_DIR ${CMAKE_BINARY_DIR}/googletest-build)
-  add_subdirectory(${GTEST_SOURCE_DIR} ${GTEST_BINARY_DIR})
+  #add_subdirectory(${GTEST_SOURCE_DIR} ${GTEST_BINARY_DIR})
+  message("GTEST_SOURCE_DIR: " ${GTEST_SOURCE_DIR})
+  message("GTEST_BINARY_DIR: " ${GTEST_BINARY_DIR})
 
   set(GTEST_LIB_DIR ${GTEST_BINARY_DIR}/googlemock/gtest PARENT_SCOPE)
   set(GTEST_LIBRARY ${GTEST_LIB_DIR}/libgtest.a PARENT_SCOPE)
