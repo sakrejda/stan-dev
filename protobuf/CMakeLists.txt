@@ -4,27 +4,17 @@ message("Find Protobuf?")
 find_package(Protobuf)
 if(Protobuf_FOUND)
   message("Using system Protobuf!")
+  add_custom_target(protobuf)
 else(Protobuf_FOUND)
   message("Getting Protobuf!")
-  ExternalProject_Add(protobuf
+  download_project(
+    PROJ protobuf
     GIT_REPOSITORY    https://github.com/google/protobuf.git
     GIT_TAG           master
-    SOURCE_DIR        "${CMAKE_BINARY_DIR}/protobuf-src"
-    BINARY_DIR        "${CMAKE_BINARY_DIR}/protobuf-build"
-    CONFIGURE_COMMAND "cmake"
-    BUILD_COMMAND     "make"
-    INSTALL_COMMAND   ""
-    TEST_COMMAND      ""
+    ${UPDATE_DISCONNECTED_IF_AVAILABLE}
   )
-  
-  # Dump variables to global environment
-  ExternalProject_Get_Property(protobuf PROTO_SOURCE_DIR)
-  ExternalProject_Get_Property(protobuf PROTO_BINARY_DIR)
-  
-  # Protobuf include dir
-  set(PROTO_INCLUDE_DIR ${PROTO_SOURCE_DIR}/src)
-  set(PROTO_ROOT ${PROTO_SOURCE_DIR})
-  set(PROTO_LIBRARY ${PROTO_BINARY_DIR}/libprotobuf.a)
+  add_subdirectory(${protobuf_SOURCE_DIR} ${protobuf_BINARY_DIR})
+  set(PROTOBUF_LIB_DIR ${protobuf_BINARY_DIR} PARENT_SCOPE)
 endif(Protobuf_FOUND)
 
 

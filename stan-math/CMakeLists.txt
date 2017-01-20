@@ -11,8 +11,8 @@ ExternalProject_Add(stan-math
 )
 
 # Stan include dir
-set(STAN_MATH_SRC ${STAN_MATH_SOURCE_DIR}/src)
-include_directories(${STAN_MATH_SRC})
+set(STAN_MATH_INCLUDE_DIR ${SOURCE_DIR}/src PARENT_SCOPE)
+include_directories(${STAN_MATH_INCLUDE_DIR})
 
 
 

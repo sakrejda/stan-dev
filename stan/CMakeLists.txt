@@ -5,10 +5,10 @@ ExternalProject_Add(stan
   SOURCE_DIR        "${CMAKE_BINARY_DIR}/stan-src"
   BINARY_DIR        "${CMAKE_BINARY_DIR}/stan-build"
   CONFIGURE_COMMAND ""
-  BUILD_COMMAND     make -C ${CMAKE_BINARY_DIR}/stan-src bin/libstanc.a
+  BUILD_COMMAND     ""
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
-  DEPENDS           boost googletest stan-math
+  DEPENDS           boost gtest gtest_main stan-math
 )
 
 # Dump variables to global environment:
@@ -16,20 +16,30 @@ ExternalProject_Get_Property(stan SOURCE_DIR)
 ExternalProject_Get_Property(stan BINARY_DIR)
 
 # Stan include dir
-set(STAN_SRC ${STAN_SOURCE_DIR}/stan/src)
+set(STAN_SRC ${SOURCE_DIR}/src)
 include_directories(${STAN_SRC})
 
-# Stan library dir
-set(LIB_STANC ${STAN_SOURCE_DIR}/lib/libstanc.a)
+add_definitions(
+ -DBOOST_RESULT_OF_USE_TR1
+ -DBOOST_NO_DECLTYPE 
+ -DBOOST_DISABLE_ASSERTS
+ -DFUSION_MAX_VECTOR_SIZE=12 
+ -DNO_FPRINTF_OUTPUT 
+ -DGTEST_USE_OWN_TR1_TUPLE)
 
-# Collect Stan grammar files for libstanc.a
-#file(GLOB STAN_GRAMMAR 
-#  ${STAN_SRC}/stan/lang/grammars/*_inst.cpp
-#  ${STAN_SRC}/stan/lang/grammars/*_def.cpp
-#  ${STAN_SRC}/stan/lang/*_inst.cpp
-#  ${STAN_SRC}/stan/lang/*_def.cpp
-#)
-#add_library(stanc STATIC ${STAN_GRAMMAR})
-#
+message("BOOST_INCLUDE_DIR: " ${BOOST_INCLUDE_DIR})
+file(GLOB STAN_GRAMMAR 
+  ${STAN_SRC}/stan/lang/grammars/*_inst.cpp
+  ${STAN_SRC}/stan/lang/grammars/*_def.cpp
+  ${STAN_SRC}/stan/lang/*_inst.cpp
+  ${STAN_SRC}/stan/lang/*_def.cpp
+)
+include_directories(${BOOST_INCLUDE_DIR})
+add_library(stanc STATIC ${STAN_GRAMMAR})
+
+set(STAN_LIB_DIR ${PROJECT_BINARY_DIR}/stan PARENT_SCOPE)
+set(STAN_INCLUDE_DIR ${SOURCE_DIR}/src PARENT_SCOPE)
+
+
 
 

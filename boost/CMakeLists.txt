@@ -5,7 +5,6 @@ find_package(Boost 1.58.0)
 if(Boost_FOUND)
   message("Using system Boost!")
   add_custom_target(boost ALL)
-  # GoogleTest include dir
   include_directories(${Boost_INCLUDE_DIRS})
 else(Boost_FOUND)
   message("Getting Boost!")
@@ -25,7 +24,7 @@ else(Boost_FOUND)
   ExternalProject_Get_Property(boost BOOST_BINARY_DIR)
   
   # GoogleTest include dir
-  set(BOOST_INCLUDE_DIR ${BOOST_SOURCE_DIR}/boost/include)
+  set(BOOST_INCLUDE_DIR ${BOOST_SOURCE_DIR}/boost/include PARENT_SCOPE)
   include_directories(${BOOST_INCLUDE_DIR})
 endif(Boost_FOUND)
 
