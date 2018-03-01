@@ -2,7 +2,7 @@
 download_project(
   PROJ              protostan
   GIT_REPOSITORY    https://github.com/sakrejda/protostan.git
-  GIT_TAG           develop
+  GIT_TAG           simplify
   SOURCE_DIR        "${CMAKE_BINARY_DIR}/protostan-src"
   BINARY_DIR        "${CMAKE_BINARY_DIR}/protostan-build"
 )

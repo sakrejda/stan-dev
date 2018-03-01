@@ -1,7 +1,7 @@
 
 ## Provide Boost
 message("Find Boost?")
-find_package(Boost 1.58.0)
+find_package(Boost 1.66.0)
 if(Boost_FOUND)
   message("Using system Boost!")
   add_custom_target(boost ALL)
@@ -20,8 +20,8 @@ else(Boost_FOUND)
   )
   
   # Dump variables to global environment:
-  ExternalProject_Get_Property(boost BOOST_SOURCE_DIR)
-  ExternalProject_Get_Property(boost BOOST_BINARY_DIR)
+  ExternalProject_Get_Property(boost SOURCE_DIR)
+  ExternalProject_Get_Property(boost BINARY_DIR)
   
   # GoogleTest include dir
   set(BOOST_INCLUDE_DIR ${BOOST_SOURCE_DIR}/boost/include PARENT_SCOPE)
